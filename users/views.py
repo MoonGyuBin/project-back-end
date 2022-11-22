@@ -1,14 +1,10 @@
 from rest_framework.views import APIView
-from rest_framework import status
 from rest_framework.response import Response
-from post import serializers
-from users.serializers import CustomTokenObtainPairSerializer, UserSerializer,UserProfileSerializer
+from users.serializers import CustomTokenObtainPairSerializer, UserSerializer
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView   # jwt 토큰 커스터마이징 사용자 인증
+    TokenObtainPairView   # jwt
 )
-from rest_framework import permissions # 사용자 권한
-from rest_framework.generics import get_object_or_404
-from users.models import User
+
 
 # Create your views here.
 
@@ -18,11 +14,11 @@ class UserView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message":"가입완료 ㅇㅅㅇ"}, status=status.HTTP_201_CREATED)
+            return Response({"message":"가입완료"},)
         else:
-            return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message":f"${serializer.errors}"})
 
 # jwt 토큰 커스터마이징 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer # 시리얼라이저 jwt 커스텀모델
+    serializer_class = CustomTokenObtainPairSerializer
 
