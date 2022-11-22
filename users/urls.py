@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView, # 뷰에서 커스텀
+    TokenObtainPairView, 
     TokenRefreshView,
 ) # jwt
 from users import views
