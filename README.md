@@ -6,7 +6,11 @@
   <br> 소비자가 원하는 사진을 유화 그림체로 변경하여 다운 받을 수 있는 환경을 제공하고 서로의 사진을 공유할 수 있는 소셜 네트워크 서비스 입니다.
 
   ***
+----
+<img src="https://img.shields.io/badge/python-skyblue??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/Django-green??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/javascript-red??style=for-the-badge&logo=appveyor&logoColor=white"/>
 
+
+----
 <br>
 
 ## 2. 역할
