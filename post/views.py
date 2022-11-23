@@ -69,7 +69,7 @@ class ArticleView(APIView):
 
             "owner": request.user.id,
             "picture": photo,
-            "category": categoies,
+            "category": picture,
             "title": request.data["title"],
             "content": request.data["content"],
         }
