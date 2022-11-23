@@ -125,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -154,7 +154,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # jwt 타임라인
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=720), # access
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10000), # access
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # refesh 
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
