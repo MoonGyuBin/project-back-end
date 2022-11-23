@@ -18,14 +18,11 @@ def transform_img(model, image):
     output_img = output_img.squeeze().transpose((1, 2, 0))
     output_img += MEAN_VALUE
     output_img = np.clip(output_img, 0, 255)
-    # output_img = output_img.astype('uint8')
-    # print(output_img)
+    output_img = output_img.astype('uint8')
 
-    datetimes = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    days = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    cv2.imwrite("media/{datetimes}.jpg", output_img)
-    # cv2.imwrite(f"/media/{datetimes}.jpg", output_img)
-    # cv2.imwrite(f"media/{datetimes}.jpg", input_img)
-    transform = f"pictures{datetimes}.jpg"
+    cv2.imwrite(f'media/result/{days}.jpg', output_img)
+    transform = f"pictures{days}.jpg"
 
     return transform
