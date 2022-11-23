@@ -67,7 +67,7 @@ class Picture(models.Model):
     )
     picture = models.ImageField(
         "그림 이미지",
-        upload_to='%Y/%m/',
+        upload_to='',
 
     )
 
