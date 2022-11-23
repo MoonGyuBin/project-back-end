@@ -4,20 +4,21 @@ from post.models import Post
 from post.serializers import PostListSerializer, PostCreateSerializer
 
 # 22.11.23
-from rest_framework.exceptions import NotAuthenticated
 from post.models import Article as ArticleModel
 from post.models import Category as CategoryModel
 from post.models import Picture as PictureModel
 
+from post.serializers import ArticleSerializer, CategoriesSerializer, PictureSerializer
 
-from .serializers import ArticleSerializer, CategoriesSerializer, PictureSerializer
-from .transform import transform_img
+from post.transform import transform_img
+
+from rest_framework.exceptions import NotAuthenticated
+from rest_framework import status
 from django.core.files.storage import FileSystemStorage
+from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 # Create your views here.
-
-# 게시글 리스트 보기/작성
 
 
 class PostView(APIView):
@@ -35,6 +36,8 @@ class PostView(APIView):
         else:
             return Response(serializer.errors)
 
+# 22.11.23
+
 
 class ArticleView(APIView):
 
@@ -44,15 +47,18 @@ class ArticleView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        fs = FileSystemStorage()
+        datetimes = datetime.now().strftime('%Y-%m-%d %S')
+
+        # if request.user.is_authenticated: 추후 JWT 변경 시 삭제.
         data = request.data
         categoies = CategoryModel.objects.get(
             category=request.data["image_style"])
-        request.FILES["picture"]
         photo = request.FILES["picture"]
-        fs = FileSystemStorage()
-        datetimes = datetime.now().strftime('%Y-%m-%d %S')
+
         pictures = fs.save(f"img{datetimes}.jpg", photo)
         transform = transform_img(categoies, pictures)
+
         picture = PictureModel.objects.create(
             image_style=categoies,
             picture=transform,
@@ -76,29 +82,37 @@ class ArticleView(APIView):
         else:
             return Response(articles.errors)
 
-        # # 모델이름 # 인풋 사진
-
-    # def post(self, request):
-    #     if request.user.is_authenticated:
-    #         serializer = ArticleSerializer(data=request.data)
-    #         print(serializer)
-    #         if serializer.is_valid():
-    #             articles = serializer.save(owner=request.user)
-    #             serializers = ArticleSerializer(articles)
-    #             print(serializers.data)
-    #             return Response(serializer.data)
-    #         else:
-    #             return Response(serializer.errors)
-    #     else:
-    #         return NotAuthenticated
-
 
 class ArticleDetailView(APIView):
-    def get(self, request, pk):
-        pass
 
+    # if request.user.is_authenticated: 추후 JWT 변경 시 삭제.
+
+    def get_object(self, pk):
+
+        try:
+            return ArticleModel.objects.get(pk=pk)
+
+        except ArticleModel.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+
+    def get(self, request, pk):
+        articles = get_object_or_404(ArticleModel, pk=pk)
+        serializer = ArticleSerializer(articles)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # 수정 준비 중.
     def put(self, request, pk):
-        pass
+        articles = get_object_or_404(ArticleModel, pk=pk)
+        serializer = ArticleSerializer(
+            articles, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        pass
+        articles = get_object_or_404(ArticleModel, pk=pk)
+        articles.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

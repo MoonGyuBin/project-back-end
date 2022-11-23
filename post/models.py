@@ -18,7 +18,11 @@ class Post(models.Model):
 
 # 22.11.23
 
+
 class Article(models.Model):
+
+    ''' Article Definition'''
+
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
@@ -48,9 +52,55 @@ class Article(models.Model):
 
 
 class Category(models.Model):
+
+    '''Categories Definition'''
+
+    class CategoryChoice(models.TextChoices):
+        EC_COMPOSITION = (
+            "eccv16/composition_vii.t7",
+            "EC_컴포지션"
+        )
+        EC_MUSE = (
+            "eccv16/la_muse.t7",
+            "EC_뮤즈"
+        )
+        EC_STARRY = (
+            "eccv16/starry_night.t7",
+            "EC_나이트"
+        )
+        EC_WAVE = (
+            "eccv16/the_wave.t7",
+            "EC_웨이브"
+        )
+        IN_CANDY = (
+            "instance_norm/candy.t7",
+            "IN_캔디"
+        )
+        IN_FEATHER = (
+            "instance_norm/feathers.t7",
+            "IN_패덜"
+        )
+        IN_MUSE = (
+            "instance_norm/la_muse.t7",
+            "IN_뮤즈"
+        )
+        IN_MOSAIC = (
+            "instance_norm/mosaic.t7",
+            "IN_모자이크"
+        )
+        IN_STARRY = (
+            "instance_norm/starry_night.t7",
+            "IN_나이트"
+        )
+        IN_UDNIE = (
+            "instance_norm/udnie.t7",
+            "IN_우드네"
+        )
+
     category = models.CharField(
         "카테고리",
         max_length=150,
+        choices=CategoryChoice.choices
     )
 
     def __str__(self) -> str:
@@ -58,6 +108,8 @@ class Category(models.Model):
 
 
 class Picture(models.Model):
+
+    ''' Picture Definition'''
 
     image_style = models.ForeignKey(
         "post.Category",
