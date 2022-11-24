@@ -7,8 +7,10 @@ from post.serializers import PostListSerializer, PostCreateSerializer
 from post.models import Article as ArticleModel
 from post.models import Category as CategoryModel
 from post.models import Picture as PictureModel
+from post.models import Comment as CommentModel
 
-from post.serializers import ArticleSerializer, CategoriesSerializer, PictureSerializer
+from post.serializers import ArticleSerializer
+from post.serializers import CommentSerializer
 
 from post.transform import transform_img
 
@@ -116,3 +118,40 @@ class ArticleDetailView(APIView):
         articles = get_object_or_404(ArticleModel, pk=pk)
         articles.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CommentView(APIView):
+
+    def get(self, request):
+        comments = CommentModel.objects.filter()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CommentDetailView(APIView):
+
+    def get(self, request, author_pk):
+        comments = CommentModel.objects.filter(pk=author_pk)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, author_pk):
+        comments = get_object_or_404(CommentModel, pk=author_pk)
+        serializer = CommentSerializer(
+            comments, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delet(self, request, author_pk):
+        comments = get_object_or_404(CommentModel, pk=author_pk)
+        comments.delete()
+        return Response(status=status.HTTP_404_NOT_FOUND)

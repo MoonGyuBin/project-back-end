@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from post.models import Post, Article, Picture, Category
+from post.models import Post, Article, Picture, Category, Comment
 
 
 # 게시글리스트 보기 GET
@@ -57,9 +57,8 @@ class CategoriesSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    owner = serializers.SerializerMethodField(
+    owner = serializers.SerializerMethodField()
 
-    )
     picture = PictureSerializer(
         many=True,
         read_only=True,
@@ -77,3 +76,22 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = "__all__"
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
+
+    def get_author(self, obj):
+        return obj.user.email
+
+    class Meta:
+        model = Comment
+        fields = (
+            "pk",
+            "article",
+            "user",
+            "author",
+            "content",
+            "created_at",
+            "updated_at",
+        )
