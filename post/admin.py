@@ -3,6 +3,7 @@ from post.models import Post as PostModel
 from post.models import Article as ArticleModel
 from post.models import Picture as PictureModel
 from post.models import Category as CategoryModel
+from post.models import Comment as CommentModel
 # Register your models here.
 
 admin.site.register(PostModel)
@@ -35,4 +36,20 @@ class PictureAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         "category",
+    )
+
+
+@admin.register(CommentModel)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        "article",
+        "user",
+        "content",
+
+    )
+
+    list_filter = (
+
+        "updated_at",
+
     )

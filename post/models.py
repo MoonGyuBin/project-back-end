@@ -33,11 +33,11 @@ class Article(models.Model):
     )
 
     title = models.CharField(
-        "게시글 제목",
+        verbose_name="게시글 제목",
         max_length=150,
     )
     content = models.TextField(
-        "게시글 내용"
+        verbose_name="게시글 내용",
 
     )
     created_at = models.DateTimeField(
@@ -125,3 +125,32 @@ class Picture(models.Model):
 
     def __str__(self) -> str:
         return str(self.image_style)
+
+
+class Comment(models.Model):
+
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        verbose_name="작성 게시글",
+    )
+    user = models.ForeignKey(
+        'users.User',
+        on_delete=models.CASCADE,
+        verbose_name="작성자",
+    )
+    content = models.CharField(
+        max_length=300,
+        verbose_name="댓글",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self) -> str:
+        return f"게시글 {self.article} : 작성자 {self.user} : 댓글{self.content}"
