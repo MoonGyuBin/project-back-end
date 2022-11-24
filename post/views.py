@@ -70,8 +70,8 @@ class ArticleView(APIView):
         data = {
 
             "owner": request.user.id,
-            "picture": photo,
-            "category": picture,
+            "picture": transform,
+            "image_styles": categoies,
             "title": request.data["title"],
             "content": request.data["content"],
         }
