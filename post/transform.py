@@ -22,7 +22,7 @@ def transform_img(model, image):
 
     days = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    cv2.imwrite(f'media/result/{days}.jpg', output_img)
-    transform = f"pictures{days}.jpg"
+    cv2.imwrite('media/result/pictures{days}.jpg', output_img)
+    transform = "media/result/pictures{days}.jpg"
 
     return transform

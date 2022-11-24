@@ -38,11 +38,7 @@ class PictureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Picture
-        fields = (
-            "owner",
-            "image_style",
-            "picture",
-        )
+        fields = "__all__"
 
 # 카테고리
 
@@ -58,24 +54,24 @@ class CategoriesSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
-
-    picture = PictureSerializer(
-        many=True,
-        read_only=True,
-        source="picture_set",
-    )
-    category = CategoriesSerializer(
-        many=True,
-        read_only=True,
-        source="category_set",
-    )
+    image_styles = PictureSerializer(read_only=True)
 
     def get_owner(self, obj):
         return obj.owner.email
 
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = (
+            "owner",
+            "picture",
+            "title",
+            "content",
+            "image_styles",
+        )
+        read_only_fields = (
+            "created_at",
+            "updated_at",
+        )
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -92,6 +88,9 @@ class CommentSerializer(serializers.ModelSerializer):
             "user",
             "author",
             "content",
+
+        )
+        read_only_fields = (
             "created_at",
             "updated_at",
         )
