@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from datetime import datetime
+import random
 
 
 def transform_img(model, image):
@@ -20,9 +21,15 @@ def transform_img(model, image):
     output_img = np.clip(output_img, 0, 255)
     output_img = output_img.astype('uint8')
 
-    days = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # days = datetime.now()
+    # num = random.randrange(1, 100)
 
-    cv2.imwrite('media/result/pictures{days}.jpg', output_img)
-    transform = "media/result/pictures{days}.jpg"
+    now = datetime.now()
+    times = now.microsecond
+
+    cv2.imwrite(f'media/result/pictures{times}.jpg', output_img)
+    transform = f"media/result/pictures{times}.jpg"
 
     return transform
+
+    # 1. opencv
