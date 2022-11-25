@@ -12,7 +12,15 @@ github Wiki : <a src="">이동하기</a>
 
   ***
 
+---
+
+<img src="https://img.shields.io/badge/python-skyblue??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/Django-green??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/javascript-red??style=for-the-badge&logo=appveyor&logoColor=white"/>
+
 ## 개발환경
+
+---
+
+<br>
 
 - Back-end
   - python
