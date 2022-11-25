@@ -3,22 +3,22 @@ from post.models import Post, Article, Picture, Category, Comment
 
 
 # 게시글리스트 보기 GET
-class PostListSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
+# class PostListSerializer(serializers.ModelSerializer):
+#     user = serializers.SerializerMethodField()
 
-    def get_user(self, obj):  # 유저-> 이메일
-        return obj.user.email
+#     def get_user(self, obj):  # 유저-> 이메일
+#         return obj.user.email
 
-    class Meta:
-        model = Post
-        fields = ('pk', 'title', 'image', 'update_at', 'user',)  # pk = id
+#     class Meta:
+#         model = Post
+#         fields = ('pk', 'title', 'image', 'update_at', 'user',)  # pk = id
 
 
-# 게시글 작성 POST
-class PostCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ('title', 'image', 'content')
+# # 게시글 작성 POST
+# class PostCreateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Post
+#         fields = ('title', 'image', 'content')
 
 
 # 22.11.23
@@ -62,6 +62,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = (
+            "id",
             "owner",
             "picture",
             "title",
