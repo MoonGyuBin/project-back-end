@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta # jwt 타임라인
+from datetime import timedelta  # jwt 타임라인
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,32 +38,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', # drf
-    'rest_framework_simplejwt', # jwt
+    'rest_framework',  # drf
+    'rest_framework_simplejwt',  # jwt
     'users',
     'post',
-    'corsheaders', # cors
+    'corsheaders',  # cors
 ]
 
 
 # jwt
 REST_FRAMEWORK = {
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        
+
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
-    
+
 }
-
-
-
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # cors
+    'corsheaders.middleware.CorsMiddleware',  # cors
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -151,11 +148,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 
-
 # jwt 타임라인
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10000), # access
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # refesh 
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10000),  # access
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # refesh
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': False,
@@ -184,4 +180,4 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-CORS_ALLOW_ALL_ORIGINS = True # cors
+CORS_ALLOW_ALL_ORIGINS = True  # cors
