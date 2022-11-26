@@ -12,6 +12,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return str(self.title)
 
@@ -46,7 +47,13 @@ class Article(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
-
+    
+    likes = models.ManyToManyField(
+        'users.User', related_name="like_articles", blank=True)
+    
+    # def __str__(self):
+    #     retrun self.like.count()
+    
     def __str__(self) -> str:
         return f"{self.owner}님의 작품{self.title} 입니다."
 
