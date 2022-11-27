@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from post.models import Post
+from post.models import Article, Post
 from post.serializers import PostListSerializer, PostCreateSerializer
 
 # 22.11.23
@@ -68,7 +68,7 @@ class ArticleView(APIView):
         picture.save()
 
         data = {
-
+                
             "owner": request.user.id,
             "picture": transform,
             "image_styles": categoies,
@@ -155,3 +155,36 @@ class CommentDetailView(APIView):
         comments = get_object_or_404(CommentModel, pk=author_pk)
         comments.delete()
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LikeView(APIView):
+    def post(self, request, article_id):
+        article = get_object_or_404(Article, id=article_id)
+        if request.user in article.likes.all():
+            article.likes.remove(request.user)
+            return Response("unfollow했습니다.", status=status.HTTP_200_OK)
+        else:
+            article.likes.add(request.user)
+            return Response("follow했습니다.", status=status.HTTP_200_OK)
+        
+        
+# class LikeView(APIView):
+#     def post(self, request, article_id):
+#         user = request.user
+#         article = ArticleModel.objects.get(id=article_id)
+#         likes = article.like.all()
+#         like_lists = []
+#         for like in likes:
+#             like_lists.append(like.id)
+#         if user.id in like_lists:
+#             article.like.remove(user)
+            
+#             article.like -= 1
+#             article.save()
+#             return Response({'message': '좋아요 취소!'})
+#         else:
+#             article.like.add(user)
+            
+#             article.like += 1
+#             article.save()
+#             return Response({'message': '좋아요!'})
