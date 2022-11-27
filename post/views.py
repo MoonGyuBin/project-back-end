@@ -1,7 +1,5 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from post.models import Post
-from post.serializers import PostListSerializer, PostCreateSerializer
 
 # 22.11.23
 from post.models import Article as ArticleModel
@@ -20,27 +18,10 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 
-# Create your views here.
-
-
-# class PostView(APIView):
-#     def get(self, request):
-#         articles = Post.objects.all()
-#         serializer = PostListSerializer(articles, many=True)
-#         return Response(serializer.data)
-
-#     def post(self, request):
-#         serializer = PostCreateSerializer(data=request.data)
-#         if serializer.is_valid():
-#             posts = serializer.save(user=request.user)
-#             serializer = PostCreateSerializer(posts)
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.errors)
-
 # 22.11.23
 
 
+# 게시글 조회 / 삭제
 class ArticleView(APIView):
 
     def get(self, request):
@@ -52,7 +33,6 @@ class ArticleView(APIView):
         fs = FileSystemStorage()
         datetimes = datetime.now().strftime('%Y-%m-%d %S')
 
-        # if request.user.is_authenticated: 추후 JWT 변경 시 삭제.
         data = request.data
         categoies = CategoryModel.objects.get(
             category=request.data["image_style"])
@@ -85,9 +65,8 @@ class ArticleView(APIView):
             return Response(articles.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# 게시글 수정
 class ArticleDetailView(APIView):
-
-    # if request.user.is_authenticated: 추후 JWT 변경 시 삭제.
 
     def get_object(self, article_pk):
 
@@ -102,7 +81,6 @@ class ArticleDetailView(APIView):
         serializer = ArticleSerializer(articles)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # 수정 준비 중.
     def put(self, request, article_pk):
         articles = get_object_or_404(ArticleModel, pk=article_pk)
         serializer = ArticleSerializer(
@@ -119,6 +97,8 @@ class ArticleDetailView(APIView):
         articles.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# 댓글 조회 / 작성
+
 
 class CommentView(APIView):
 
@@ -132,6 +112,8 @@ class CommentView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+# 댓글 조회 / 수정 / 삭제
 
 
 class CommentDetailView(APIView):

@@ -16,11 +16,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
+# 회원 정보 조회 /수정 /삭제
 class UserProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    #  회원 정보 조회
     def get(self, request, user_pk):
 
         users = User.objects.get(pk=user_pk)
@@ -42,13 +42,11 @@ class UserProfileView(APIView):
         users.delete()
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    # 회원가입
+
 
 class UserSignView(APIView):
 
-    def get(self, reqeust):
-        pass
-
-    # 회원가입
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
