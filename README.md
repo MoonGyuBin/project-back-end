@@ -2,7 +2,6 @@
 
 Front-end github : <a src="https://github.com/timeiscoal/project-front-end-2-">이동하기</a>
 <br>
-github Wiki : <a src="">이동하기</a>
 
 ## 프로젝트 : 고흐흑바흐흑
 
@@ -12,7 +11,7 @@ github Wiki : <a src="">이동하기</a>
 
   ***
 
----
+<br>
 
 <img src="https://img.shields.io/badge/python-skyblue??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/Django-green??style=for-the-badge&logo=appveyor&logoColor=white"/> <img src="https://img.shields.io/badge/javascript-red??style=for-the-badge&logo=appveyor&logoColor=white"/>
 
@@ -29,6 +28,8 @@ github Wiki : <a src="">이동하기</a>
   - html
   - css
   - javescript
+
+<br>
 
 ---
 
@@ -128,11 +129,18 @@ github Wiki : <a src="">이동하기</a>
 
 ## 4. ERD
 
-<img src="https://user-images.githubusercontent.com/113073492/203248335-3d85d5a2-c870-406b-8472-289f37c03ba1.png">
+<img src="https://user-images.githubusercontent.com/113073492/204122070-d7a75ab3-411f-464b-9fa2-5e8058fef4e3.png">
+
+<br>
 
 ## 5. API
 
-<img src="https://user-images.githubusercontent.com/113073492/203248116-ac70ae02-223a-444b-92ea-9908427ebbe4.png">
+- Article
+  <img src="https://user-images.githubusercontent.com/113073492/204122106-3074bfdc-cf12-4950-9524-5065693e7788.png">
+
+- User
+
+  <img src="https://user-images.githubusercontent.com/113073492/204122171-a7792072-f215-4c3d-9999-446363f05c30.png">
 
 ## 6. 개발일정.
 
