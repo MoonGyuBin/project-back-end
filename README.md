@@ -1,6 +1,7 @@
 # TEAM : 금쪽 같은 내 코드 Back-end
 
-Front-end github : <a src="https://github.com/timeiscoal/project-front-end-2-">이동하기</a>
+Front-end github : <a href="https://github.com/timeiscoal/project-front-end-2-">이동하기</a>
+
 <br>
 
 ## 프로젝트 : 고흐흑바흐흑
