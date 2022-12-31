@@ -32,30 +32,7 @@ Front-end github : <a href="https://github.com/timeiscoal/project-front-end-2-">
 
 <br>
 
----
 
-## 팀 구성
-
-- 팀장 : 장혜림
-
-  - Front-end
-
-    - 박선미
-    - 박소민
-    - 장혜림
-    - 최신욱
-
-  - Back-end
-
-    - 박선미
-    - 박소민
-    - 장혜림
-    - 최신욱
-
-  - AI (딥러닝)
-
-    - 최신욱
-    - 문규빈
 
 <br>
 
